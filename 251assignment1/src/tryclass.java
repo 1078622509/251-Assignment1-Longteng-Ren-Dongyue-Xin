@@ -255,6 +255,53 @@ public class tryclass {
                 }
 
             });
+            //to find the target string in textArea
+            findItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+
+
+                    JFrame jj = new JFrame("Input the word :");
+                    JPanel jp = new JPanel();
+                    TextArea jt = new TextArea("");
+                    JButton jb = new JButton("click to find");
+
+
+                    jp.add(jt);
+                    jp.add(jb);
+                    jj.add(jp);
+                    jj.setBounds(300, 100, 500, 275);// 设置窗体位置和大小
+                    jj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jj.setVisible(true);
+
+
+                    jb.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent actionEvent) {
+                            String text = ta.getText();
+                            String toFind = jt.getText();
+                            jt.setText("You get it!\n");
+                            int n = text.indexOf(toFind);
+                            while(n!=-1){
+
+                                int i = text.indexOf("\n"),x = n,y = 0;
+                                while(i<=n&&i!=-1){
+                                    y++;
+                                    x = n-i;
+                                    i = text.indexOf("\n",i+1);
+                                }
+                                jt.append("y:"+Integer.toString(y)+"    x:"+Integer.toString(x)+"\r\n");
+                                n = text.indexOf(toFind,n+1);
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+            });
 
             // 窗体关闭监听
             f.addWindowListener(new WindowAdapter() {
