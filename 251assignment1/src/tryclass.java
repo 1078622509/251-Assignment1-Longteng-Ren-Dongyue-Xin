@@ -1,16 +1,24 @@
+import javax.print.*;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Calendar;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfWriter;
 
 public class tryclass {
 
@@ -23,13 +31,15 @@ public class tryclass {
         private Menu fileMenu2;
         private Menu fileMenu3;
         private Menu fileMenu4;
-        private MenuItem newItem,openItem, saveItem, closeItem,findItem;// 定义条目“退出”和“子条目”菜单项
+        private Menu fileMenu5;
+        private MenuItem newItem,openItem, saveItem, closeItem, findItem, tdItem, aboutItem, pdfItem, printItem;// 定义条目“退出”和“子条目”菜单项
 
         private FileDialog openDia, saveDia;// 定义“打开、保存”对话框
         private File file;//定义文件
         MyMenuDemo() {
             init();
         }
+
 
 
         /* 图形用户界面组件初始化 */
@@ -45,6 +55,7 @@ public class tryclass {
             fileMenu2 = new Menu("View");
             fileMenu3 = new Menu("Manage");
             fileMenu4 = new Menu("Help");
+            fileMenu5 = new Menu("Edit");
 
             newItem = new MenuItem("New");
             openItem = new MenuItem("Open");// 创建“打开"菜单项
@@ -52,17 +63,30 @@ public class tryclass {
             closeItem = new MenuItem("Exit");// 创建“退出"菜单项
             findItem = new MenuItem("Find");
 
+            tdItem = new MenuItem("Time and Date");
+            aboutItem = new MenuItem("About");
+            pdfItem = new MenuItem("Save as PDF");
+            printItem = new MenuItem("Print");
+
+
+
             fileMenu.add(newItem);
             fileMenu.add(openItem);// 将“打开”菜单项添加到“文件”菜单上
             fileMenu.add(saveItem);// 将“保存”菜单项添加到“文件”菜单上
             fileMenu.add(closeItem);// 将“退出”菜单项添加到“文件”菜单上
+            fileMenu.add(pdfItem);//将“以pdf格式保存”菜单项添加到“文件”菜单上
+            fileMenu.add(printItem);//将“打印”菜单项添加到“文件”菜单上
             fileMenu1.add(findItem);
+            fileMenu2.add(tdItem);//将“时间和日期”菜单项添加到“view”菜单上
+            fileMenu2.add(aboutItem);//将“关于”菜单项添加到“view”菜单上
+
 
             bar.add(fileMenu);// 将文件添加到菜单栏上
             bar.add(fileMenu1);
             bar.add(fileMenu2);
             bar.add(fileMenu3);
             bar.add(fileMenu4);
+            bar.add(fileMenu5);
             f.setMenuBar(bar);// 将此窗体的菜单栏设置为指定的菜单栏。
 
             openDia = new FileDialog(f, "打开", FileDialog.LOAD);
@@ -78,7 +102,9 @@ public class tryclass {
 
 
 
-        private void myEvent() {
+
+
+            private void myEvent() {
             newItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -117,6 +143,79 @@ public class tryclass {
 
                 }
 
+            });
+            printItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+                    DocFlavor flavor = DocFlavor.INPUT_STREAM.GIF;
+                    PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+                    PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+                    long j=Integer.parseInt(String.valueOf(1));
+                    for(int i=0;i<j;i++)
+                    {
+                        try {
+                            DocPrintJob job = defaultService.createPrintJob();
+                            FileInputStream fis = new FileInputStream(String.valueOf(f));
+                            DocAttributeSet das = new HashDocAttributeSet();
+                            Doc doc = new SimpleDoc(fis, flavor, das);
+                            job.print(doc, pras);
+                        }
+                        catch(Exception E) {
+                            E.printStackTrace();
+                        }
+                    }
+                }
+            });
+            pdfItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    OutputStream os = new FileOutputStream(new File(pdf));
+
+                    PdfWriter.getInstance(document, os);
+
+                    file.open();
+
+                    //方法一：使用Windows系统字体(TrueType)
+
+                    BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+                    Font font = new Font(baseFont);
+
+                    InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(text)), "GBK");
+
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+
+                    String str = "";
+
+                    while ((str = bufferedReader.readLine()) != null) {
+
+                        document.add(new Paragraph(str, font));
+
+                    }
+                }
+            });
+
+            //时间和日期菜单项监听
+            tdItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Calendar cal = Calendar.getInstance();
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int date = cal.get(Calendar.DATE);
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+                    int minute = cal.get(Calendar.MINUTE);
+                    int second = cal.get(Calendar.SECOND);
+                    String t = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+                    ta.setText(t);
+
+                }
+            });
+
+            aboutItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    new MyMenuDemo().ta.setText("This is a text editor, our group have two members, Longteng Ren and Dongyue Xin.");
+                }
             });
 
             // 保存菜单项监听

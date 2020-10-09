@@ -2,7 +2,7 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="251assignment1" options="--add-exports java.base/jdk.internal.jimage=ALL-UNNAMED" />
+      <module name="251assignment1" options="" />
     </option>
   </component>
 </project>
