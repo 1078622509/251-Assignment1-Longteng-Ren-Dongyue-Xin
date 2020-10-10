@@ -18,6 +18,7 @@ import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfDocument;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class tryclass {
@@ -31,7 +32,6 @@ public class tryclass {
         private Menu fileMenu2;
         private Menu fileMenu3;
         private Menu fileMenu4;
-        private Menu fileMenu5;
         private MenuItem newItem,openItem, saveItem, closeItem, findItem, tdItem, aboutItem, pdfItem, printItem;// 定义条目“退出”和“子条目”菜单项
 
         private FileDialog openDia, saveDia;// 定义“打开、保存”对话框
@@ -55,7 +55,6 @@ public class tryclass {
             fileMenu2 = new Menu("View");
             fileMenu3 = new Menu("Manage");
             fileMenu4 = new Menu("Help");
-            fileMenu5 = new Menu("Edit");
 
             newItem = new MenuItem("New");
             openItem = new MenuItem("Open");// 创建“打开"菜单项
@@ -86,7 +85,6 @@ public class tryclass {
             bar.add(fileMenu2);
             bar.add(fileMenu3);
             bar.add(fileMenu4);
-            bar.add(fileMenu5);
             f.setMenuBar(bar);// 将此窗体的菜单栏设置为指定的菜单栏。
 
             openDia = new FileDialog(f, "打开", FileDialog.LOAD);
@@ -170,28 +168,13 @@ public class tryclass {
             pdfItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    OutputStream os = new FileOutputStream(new File(pdf));
-
-                    PdfWriter.getInstance(document, os);
-
-                    file.open();
-
-                    //方法一：使用Windows系统字体(TrueType)
-
-                    BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-
-                    Font font = new Font(baseFont);
-
-                    InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(text)), "GBK");
-
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-
-                    String str = "";
-
-                    while ((str = bufferedReader.readLine()) != null) {
-
-                        document.add(new Paragraph(str, font));
-
+                    String pdf = "PDF";
+                    try {
+                        Txt2PDF.text2pdf(file.getName(), pdf);
+                    } catch (DocumentException ex) {
+                        ex.printStackTrace();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
                     }
                 }
             });
