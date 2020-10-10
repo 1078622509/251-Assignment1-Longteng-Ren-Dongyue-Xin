@@ -1,5 +1,5 @@
 import static org.junit.Assert.*;
 
-public class tryclassTest {
+public class tryclassTest extends tryclass {
 
 }

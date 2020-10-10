@@ -56,26 +56,26 @@ public class tryclass {
             fileMenu3 = new Menu("Manage");
             fileMenu4 = new Menu("Help");
 
-            newItem = new MenuItem("New");
+            newItem = new MenuItem("New");//创建“新建”菜单项
             openItem = new MenuItem("Open");// 创建“打开"菜单项
             saveItem = new MenuItem("Save");// 创建“保存"菜单项
             closeItem = new MenuItem("Exit");// 创建“退出"菜单项
-            findItem = new MenuItem("Find");
+            findItem = new MenuItem("Find");//创建“搜索”菜单项
 
-            tdItem = new MenuItem("Time and Date");
-            aboutItem = new MenuItem("About");
-            pdfItem = new MenuItem("Save as PDF");
-            printItem = new MenuItem("Print");
+            tdItem = new MenuItem("Time and Date");//创建“时间和日期”菜单项
+            aboutItem = new MenuItem("About");//创建”关于“菜单项
+            pdfItem = new MenuItem("Save as PDF");//创建”以PDF形式保存“菜单项
+            printItem = new MenuItem("Print");//创建”打印“菜单项
 
 
 
-            fileMenu.add(newItem);
+            fileMenu.add(newItem);// 将“新建”菜单项添加到“文件”菜单上
             fileMenu.add(openItem);// 将“打开”菜单项添加到“文件”菜单上
             fileMenu.add(saveItem);// 将“保存”菜单项添加到“文件”菜单上
             fileMenu.add(closeItem);// 将“退出”菜单项添加到“文件”菜单上
             fileMenu.add(pdfItem);//将“以pdf格式保存”菜单项添加到“文件”菜单上
             fileMenu.add(printItem);//将“打印”菜单项添加到“文件”菜单上
-            fileMenu1.add(findItem);
+            fileMenu1.add(findItem);// 将“查找”菜单项添加到“搜索”菜单上
             fileMenu2.add(tdItem);//将“时间和日期”菜单项添加到“view”菜单上
             fileMenu2.add(aboutItem);//将“关于”菜单项添加到“view”菜单上
 
@@ -142,6 +142,7 @@ public class tryclass {
                 }
 
             });
+            // 打开”打印“监听
             printItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -165,6 +166,7 @@ public class tryclass {
                     }
                 }
             });
+            //打开“以pdf保存”监听
             pdfItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -195,6 +197,7 @@ public class tryclass {
                 }
             });
 
+            // 关于监听
             aboutItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     new MyMenuDemo().ta.setText("This is a text editor, our group have two members, Longteng Ren and Dongyue Xin.");
