@@ -1,3 +1,5 @@
+import com.lowagie.text.DocumentException;
+
 import javax.print.*;
 import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
@@ -11,15 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.Calendar;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfDocument;
-import com.lowagie.text.pdf.PdfWriter;
 
 public class tryclass {
 
@@ -170,7 +163,7 @@ public class tryclass {
             pdfItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String pdf = "PDF";
+                    String pdf = "PDF.pdf";
                     try {
                         Txt2PDF.text2pdf(file.getName(), pdf);
                     } catch (DocumentException ex) {

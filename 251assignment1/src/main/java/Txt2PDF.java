@@ -23,10 +23,4 @@ public class Txt2PDF {
         }
         document.close();
     }
-    public static void main(String[] args) throws Exception {
-        String PDFTIMEDIR = "F:/pdf/";
-        String text = PDFTIMEDIR + "1.txt";
-        String pdf = PDFTIMEDIR + "1.txt.pdf";
-        text2pdf(text, pdf);
-    }
 }
