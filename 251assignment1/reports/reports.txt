@@ -1,0 +1,21 @@
+Metrics,ÖÜÁù, 10 10ÔÂ 2020 16:14:50 CST
+Method,v(G)
+"Txt2PDF.main(String[])",1
+"Txt2PDF.text2pdf(String,String)",2
+"tryclass.MyMenuDemo.MyMenuDemo()",1
+"tryclass.MyMenuDemo.init()",1
+"tryclass.MyMenuDemo.main(String[])",1
+"tryclass.MyMenuDemo.myEvent()",17
+
+Class,CBO
+"Txt2PDF",1
+"tryclass",1
+"tryclass.MyMenuDemo",1
+"tryclassTest",1
+
+Package,Ce
+"",2
+
+Project,CLOC,METH
+"project",69,6
+
